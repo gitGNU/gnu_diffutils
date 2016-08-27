@@ -1401,13 +1401,13 @@ translate_line_number (struct file_data const *file, lin i)
 }
 
 /* Translate a line number range.  This is always done for printing,
-   so for convenience translate to long int rather than lin, so that the
-   caller can use printf with "%ld" without casting.  */
+   so for convenience translate to printint rather than lin, so that the
+   caller can use printf with "%"pI"d" without casting.  */
 
 void
 translate_range (struct file_data const *file,
 		 lin a, lin b,
-		 long int *aptr, long int *bptr)
+		 printint *aptr, printint *bptr)
 {
   *aptr = translate_line_number (file, a - 1) + 1;
   *bptr = translate_line_number (file, b + 1) - 1;
@@ -1422,16 +1422,16 @@ translate_range (struct file_data const *file,
 void
 print_number_range (char sepchar, struct file_data *file, lin a, lin b)
 {
-  long int trans_a, trans_b;
+  printint trans_a, trans_b;
   translate_range (file, a, b, &trans_a, &trans_b);
 
   /* Note: we can have B < A in the case of a range of no lines.
      In this case, we should print the line number before the range,
      which is B.  */
   if (trans_b > trans_a)
-    fprintf (outfile, "%ld%c%ld", trans_a, sepchar, trans_b);
+    fprintf (outfile, "%"pI"d%c%"pI"d", trans_a, sepchar, trans_b);
   else
-    fprintf (outfile, "%ld", trans_b);
+    fprintf (outfile, "%"pI"d", trans_b);
 }
 
 /* Look at a hunk of edit script and report the range of lines in each file
@@ -1565,11 +1565,11 @@ debug_script (struct change *sp)
 
   for (; sp; sp = sp->link)
     {
-      long int line0 = sp->line0;
-      long int line1 = sp->line1;
-      long int deleted = sp->deleted;
-      long int inserted = sp->inserted;
-      fprintf (stderr, "%3ld %3ld delete %ld insert %ld\n",
+      printint line0 = sp->line0;
+      printint line1 = sp->line1;
+      printint deleted = sp->deleted;
+      printint inserted = sp->inserted;
+      fprintf (stderr, "%3"pI"d %3"pI"d delete %"pI"d insert %"pI"d\n",
 	       line0, line1, deleted, inserted);
     }
 

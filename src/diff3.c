@@ -1428,20 +1428,20 @@ output_diff3 (FILE *outputfile, struct diff3_block *diff,
 	  int realfile = mapping[i];
 	  lin lowt = D_LOWLINE (ptr, realfile);
 	  lin hight = D_HIGHLINE (ptr, realfile);
-	  long int llowt = lowt;
-	  long int lhight = hight;
+	  printint llowt = lowt;
+	  printint lhight = hight;
 
 	  fprintf (outputfile, "%d:", i + 1);
 	  switch (lowt - hight)
 	    {
 	    case 1:
-	      fprintf (outputfile, "%lda\n", llowt - 1);
+	      fprintf (outputfile, "%"pI"da\n", llowt - 1);
 	      break;
 	    case 0:
-	      fprintf (outputfile, "%ldc\n", llowt);
+	      fprintf (outputfile, "%"pI"dc\n", llowt);
 	      break;
 	    default:
-	      fprintf (outputfile, "%ld,%ldc\n", llowt, lhight);
+	      fprintf (outputfile, "%"pI"d,%"pI"dc\n", llowt, lhight);
 	      break;
 	    }
 
@@ -1495,19 +1495,18 @@ dotlines (FILE *outputfile, struct diff3_block *b, int filenum)
 
 /* Output to OUTPUTFILE a '.' line.  If LEADING_DOT is true, also
    output a command that removes initial '.'s starting with line START
-   and continuing for NUM lines.  (START is long int, not lin, for
-   convenience with printf %ld formats.)  */
+   and continuing for NUM lines.  */
 
 static void
-undotlines (FILE *outputfile, bool leading_dot, long int start, lin num)
+undotlines (FILE *outputfile, bool leading_dot, printint start, printint num)
 {
   fputs (".\n", outputfile);
   if (leading_dot)
     {
       if (num == 1)
-	fprintf (outputfile, "%lds/^\\.//\n", start);
+	fprintf (outputfile, "%"pI"ds/^\\.//\n", start);
       else
-	fprintf (outputfile, "%ld,%lds/^\\.//\n", start, start + num - 1);
+	fprintf (outputfile, "%"pI"d,%"pI"ds/^\\.//\n", start, start + num - 1);
     }
 }
 
@@ -1548,7 +1547,7 @@ output_diff3_edscript (FILE *outputfile, struct diff3_block *diff,
 	   ? DIFF_ALL
 	   : DIFF_1ST + rev_mapping[b->correspond - DIFF_1ST]);
 
-      long int low0, high0;
+      printint low0, high0;
 
       /* If we aren't supposed to do this output block, skip it.  */
       switch (type)
@@ -1569,7 +1568,7 @@ output_diff3_edscript (FILE *outputfile, struct diff3_block *diff,
 
 	  /* Mark end of conflict.  */
 
-	  fprintf (outputfile, "%lda\n", high0);
+	  fprintf (outputfile, "%"pI"da\n", high0);
 	  leading_dot = false;
 	  if (type == DIFF_ALL)
 	    {
@@ -1591,7 +1590,7 @@ output_diff3_edscript (FILE *outputfile, struct diff3_block *diff,
 
 	  /* Mark start of conflict.  */
 
-	  fprintf (outputfile, "%lda\n<<<<<<< %s\n", low0 - 1,
+	  fprintf (outputfile, "%"pI"da\n<<<<<<< %s\n", low0 - 1,
 		   type == DIFF_ALL ? file0 : file1);
 	  leading_dot = false;
 	  if (type == DIFF_2ND)
@@ -1607,9 +1606,9 @@ output_diff3_edscript (FILE *outputfile, struct diff3_block *diff,
 	/* Write out a delete */
 	{
 	  if (low0 == high0)
-	    fprintf (outputfile, "%ldd\n", low0);
+	    fprintf (outputfile, "%"pI"dd\n", low0);
 	  else
-	    fprintf (outputfile, "%ld,%ldd\n", low0, high0);
+	    fprintf (outputfile, "%"pI"d,%"pI"dd\n", low0, high0);
 	}
       else
 	/* Write out an add or change */
@@ -1617,13 +1616,13 @@ output_diff3_edscript (FILE *outputfile, struct diff3_block *diff,
 	  switch (high0 - low0)
 	    {
 	    case -1:
-	      fprintf (outputfile, "%lda\n", high0);
+	      fprintf (outputfile, "%"pI"da\n", high0);
 	      break;
 	    case 0:
-	      fprintf (outputfile, "%ldc\n", high0);
+	      fprintf (outputfile, "%"pI"dc\n", high0);
 	      break;
 	    default:
-	      fprintf (outputfile, "%ld,%ldc\n", low0, high0);
+	      fprintf (outputfile, "%"pI"d,%"pI"dc\n", low0, high0);
 	      break;
 	    }
 

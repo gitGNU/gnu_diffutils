@@ -967,12 +967,12 @@ edit (struct line_filter *left, char const *lname, lin lline, lin llen,
 	      case 'd':
 		if (llen)
 		  {
+		    printint l1 = lline;
+		    printint l2 = lline + llen - 1;
 		    if (llen == 1)
-		      fprintf (tmp, "--- %s %ld\n", lname, (long int) lline);
+		      fprintf (tmp, "--- %s %"pI"d\n", lname, l1);
 		    else
-		      fprintf (tmp, "--- %s %ld,%ld\n", lname,
-			       (long int) lline,
-			       (long int) (lline + llen - 1));
+		      fprintf (tmp, "--- %s %"pI"d,%"pI"d\n", lname, l1, l2);
 		  }
 		/* Fall through.  */
 	      case '1': case 'b': case 'l':
@@ -989,12 +989,12 @@ edit (struct line_filter *left, char const *lname, lin lline, lin llen,
 	      case 'd':
 		if (rlen)
 		  {
+		    printint l1 = rline;
+		    printint l2 = rline + rlen - 1;
 		    if (rlen == 1)
-		      fprintf (tmp, "+++ %s %ld\n", rname, (long int) rline);
+		      fprintf (tmp, "+++ %s %"pI"d\n", rname, l1);
 		    else
-		      fprintf (tmp, "+++ %s %ld,%ld\n", rname,
-			       (long int) rline,
-			       (long int) (rline + rlen - 1));
+		      fprintf (tmp, "+++ %s %"pI"d,%"pI"d\n", rname, l1, l2);
 		  }
 		/* Fall through.  */
 	      case '2': case 'b': case 'r':

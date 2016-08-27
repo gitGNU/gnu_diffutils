@@ -406,7 +406,7 @@ extern void print_script (struct change *, struct change * (*) (struct change *)
                           void (*) (struct change *));
 extern void setup_output (char const *, char const *, bool);
 extern void translate_range (struct file_data const *, lin, lin,
-                             long int *, long int *);
+                             printint *, printint *);
 
 enum color_context
 {

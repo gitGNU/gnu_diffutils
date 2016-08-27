@@ -260,9 +260,9 @@ print_sdiff_common_lines (lin limit0, lin limit1)
     {
       if (sdiff_merge_assist)
 	{
-	  long int len0 = limit0 - i0;
-	  long int len1 = limit1 - i1;
-	  fprintf (outfile, "i%ld,%ld\n", len0, len1);
+	  printint len0 = limit0 - i0;
+	  printint len1 = limit1 - i1;
+	  fprintf (outfile, "i%"pI"d,%"pI"d\n", len0, len1);
 	}
 
       if (!left_column)
@@ -302,9 +302,9 @@ print_sdiff_hunk (struct change *hunk)
 
   if (sdiff_merge_assist)
     {
-      long int len0 = last0 - first0 + 1;
-      long int len1 = last1 - first1 + 1;
-      fprintf (outfile, "c%ld,%ld\n", len0, len1);
+      printint len0 = last0 - first0 + 1;
+      printint len1 = last1 - first1 + 1;
+      fprintf (outfile, "c%"pI"d,%"pI"d\n", len0, len1);
     }
 
   /* Print "xxx  |  xxx " lines.  */

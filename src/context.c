@@ -126,7 +126,7 @@ print_context_script (struct change *script, bool unidiff)
 static void
 print_context_number_range (struct file_data const *file, lin a, lin b)
 {
-  long int trans_a, trans_b;
+  printint trans_a, trans_b;
   translate_range (file, a, b, &trans_a, &trans_b);
 
   /* We can have B <= A in the case of a range of no lines.
@@ -139,9 +139,9 @@ print_context_number_range (struct file_data const *file, lin a, lin b)
      specification.  */
 
   if (trans_b <= trans_a)
-    fprintf (outfile, "%ld", trans_b);
+    fprintf (outfile, "%"pI"d", trans_b);
   else
-    fprintf (outfile, "%ld,%ld", trans_a, trans_b);
+    fprintf (outfile, "%"pI"d,%"pI"d", trans_a, trans_b);
 }
 
 /* Print FUNCTION in a context header.  */
@@ -299,7 +299,7 @@ pr_context_hunk (struct change *hunk)
 static void
 print_unidiff_number_range (struct file_data const *file, lin a, lin b)
 {
-  long int trans_a, trans_b;
+  printint trans_a, trans_b;
   translate_range (file, a, b, &trans_a, &trans_b);
 
   /* We can have B < A in the case of a range of no lines.
@@ -307,9 +307,9 @@ print_unidiff_number_range (struct file_data const *file, lin a, lin b)
      which is B.  It would be more logical to print A, but
      'patch' expects B in order to detect diffs against empty files.  */
   if (trans_b <= trans_a)
-    fprintf (outfile, trans_b < trans_a ? "%ld,0" : "%ld", trans_b);
+    fprintf (outfile, trans_b < trans_a ? "%"pI"d,0" : "%"pI"d", trans_b);
   else
-    fprintf (outfile, "%ld,%ld", trans_a, trans_b - trans_a + 1);
+    fprintf (outfile, "%"pI"d,%"pI"d", trans_a, trans_b - trans_a + 1);
 }
 
 /* Print a portion of an edit script in unidiff format.
