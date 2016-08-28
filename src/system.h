@@ -134,17 +134,19 @@ typedef ptrdiff_t lin;
 #define LIN_MAX PTRDIFF_MAX
 
 /* The signed integer type for printing line numbers, and its printf
-   length modifier.  Prefer 'long int' if it suffices, to cater to C
-   implementations that lack support for "ll".  The natural
-   C99-or-later implementation with ptrdiff_t and "t" is less portable
-   in practice.  */
+   length modifier.  This is not simply ptrdiff_t, to cater to older
+   and/or nonstandard C libraries where "l" works but "ll" and "t" do
+   not, or where 'long' is too narrow and "ll" works but "t" does not.  */
 
 #if LIN_MAX <= LONG_MAX
 typedef long int printint;
 # define pI "l"
-#else
+#elif LIN_MAX <= LLONG_MAX
 typedef long long int printint;
 # define pI "ll"
+#else
+typedef ptrdiff_t printint;
+# define pI "t"
 #endif
 
 verify (TYPE_SIGNED (lin));
