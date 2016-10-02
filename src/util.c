@@ -383,7 +383,7 @@ get_funky_string (char **dest, const char **src, bool equals_end,
                   state = ST_END; /* End */
                   break;
                 }
-              /* else fall through */
+              /* fall through */
             default:
               *(q++) = *(p++);
               ++count;

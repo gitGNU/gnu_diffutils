@@ -338,7 +338,9 @@ main (int argc, char **argv)
 	}
     }
 
-  edscript = incompat & ~merge;  /* -AeExX3 without -m implies ed script.  */
+  /* -AeExX3 without -m implies ed script.  */
+  edscript = incompat & ~(int) merge;
+
   show_2nd |= ~incompat & merge;  /* -m without -AeExX3 implies -A.  */
   flagging |= ~incompat & merge;
 
