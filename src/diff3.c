@@ -24,6 +24,7 @@
 
 #include <c-stack.h>
 #include <cmpbuf.h>
+#include "die.h"
 #include <error.h>
 #include <exitfail.h>
 #include <file-type.h>
@@ -403,7 +404,7 @@ main (int argc, char **argv)
 	if (stat (file[i], &statb) < 0)
 	  perror_with_exit (file[i]);
 	else if (S_ISDIR (statb.st_mode))
-	  error (EXIT_TROUBLE, EISDIR, "%s", file[i]);
+	  die (EXIT_TROUBLE, EISDIR, "%s", file[i]);
       }
 
 #ifdef SIGCHLD
@@ -457,9 +458,8 @@ try_help (char const *reason_msgid, char const *operand)
 {
   if (reason_msgid)
     error (0, 0, _(reason_msgid), operand);
-  error (EXIT_TROUBLE, 0,
+  die (EXIT_TROUBLE, 0,
 	 _("Try '%s --help' for more information."), program_name);
-  abort ();
 }
 
 static void
@@ -1319,7 +1319,7 @@ read_diff (char const *filea,
   status = ! werrno && WIFEXITED (wstatus) ? WEXITSTATUS (wstatus) : INT_MAX;
 
   if (EXIT_TROUBLE <= status)
-    error (EXIT_TROUBLE, werrno,
+    die (EXIT_TROUBLE, werrno,
 	   _(status == 126
 	     ? "subsidiary program '%s' could not be invoked"
 	     : status == 127
@@ -1776,17 +1776,15 @@ reverse_diff3_blocklist (struct diff3_block *diff)
 
   return prev;
 }
-
+
 static void
 fatal (char const *msgid)
 {
-  error (EXIT_TROUBLE, 0, "%s", _(msgid));
-  abort ();
+  die (EXIT_TROUBLE, 0, "%s", _(msgid));
 }
 
 static void
 perror_with_exit (char const *string)
 {
-  error (EXIT_TROUBLE, errno, "%s", string);
-  abort ();
+  die (EXIT_TROUBLE, errno, "%s", string);
 }

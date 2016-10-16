@@ -20,6 +20,7 @@
 
 #include "diff.h"
 #include "argmatch.h"
+#include "die.h"
 #include <dirname.h>
 #include <error.h>
 #include <system-quote.h>
@@ -77,8 +78,7 @@ pfatal_with_name (char const *name)
 {
   int e = errno;
   print_message_queue ();
-  error (EXIT_TROUBLE, e, "%s", name);
-  abort ();
+  die (EXIT_TROUBLE, e, "%s", name);
 }
 
 /* Print an error message containing MSGID, then exit.  */
@@ -87,8 +87,7 @@ void
 fatal (char const *msgid)
 {
   print_message_queue ();
-  error (EXIT_TROUBLE, 0, "%s", _(msgid));
-  abort ();
+  die (EXIT_TROUBLE, 0, "%s", _(msgid));
 }
 
 /* Like printf, except if -l in effect then save the message and print later.
@@ -965,7 +964,7 @@ finish_output (void)
 		? WEXITSTATUS (wstatus)
 		: INT_MAX);
       if (status)
-	error (EXIT_TROUBLE, werrno,
+	die (EXIT_TROUBLE, werrno,
 	       _(status == 126
 		 ? "subsidiary program '%s' could not be invoked"
 		 : status == 127

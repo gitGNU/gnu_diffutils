@@ -43,7 +43,10 @@ sdiff_SOURCES = sdiff.c
 diff_SOURCES = \
   analyze.c context.c diff.c dir.c ed.c ifdef.c io.c \
   normal.c side.c util.c
-noinst_HEADERS = diff.h system.h
+noinst_HEADERS =	\
+  die.h			\
+  diff.h		\
+  system.h
 
 MOSTLYCLEANFILES = paths.h paths.ht
 

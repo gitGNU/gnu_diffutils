@@ -23,6 +23,7 @@
 
 #include <c-stack.h>
 #include <cmpbuf.h>
+#include "die.h"
 #include <error.h>
 #include <exitfail.h>
 #include <file-type.h>
@@ -114,9 +115,8 @@ try_help (char const *reason_msgid, char const *operand)
 {
   if (reason_msgid)
     error (0, 0, _(reason_msgid), operand);
-  error (EXIT_TROUBLE, 0,
+  die (EXIT_TROUBLE, 0,
 	 _("Try '%s --help' for more information."), program_name);
-  abort ();
 }
 
 static char const valid_suffixes[] = "kKMGTPEZY0";
@@ -152,9 +152,9 @@ static void
 check_stdout (void)
 {
   if (ferror (stdout))
-    error (EXIT_TROUBLE, 0, "%s", _("write failed"));
+    die (EXIT_TROUBLE, 0, "%s", _("write failed"));
   else if (fclose (stdout) != 0)
-    error (EXIT_TROUBLE, errno, "%s", _("standard output"));
+    die (EXIT_TROUBLE, errno, "%s", _("standard output"));
 }
 
 static char const * const option_help_msgid[] = {
@@ -303,7 +303,7 @@ main (int argc, char **argv)
 	  if (file_desc[f1] < 0 && comparison_type == type_status)
 	    exit (EXIT_TROUBLE);
 	  else
-	    error (EXIT_TROUBLE, errno, "%s", file[f1]);
+	    die (EXIT_TROUBLE, errno, "%s", file[f1]);
 	}
     }
 
@@ -363,7 +363,7 @@ main (int argc, char **argv)
 
   for (f = 0; f < 2; f++)
     if (close (file_desc[f]) != 0)
-      error (EXIT_TROUBLE, errno, "%s", file[f]);
+      die (EXIT_TROUBLE, errno, "%s", file[f]);
   if (exit_status != EXIT_SUCCESS && comparison_type < type_no_stdout)
     check_stdout ();
   exit (exit_status);
@@ -421,7 +421,7 @@ cmp (void)
 	      if (r != bytes_to_read)
 		{
 		  if (r == SIZE_MAX)
-		    error (EXIT_TROUBLE, errno, "%s", file[f]);
+		    die (EXIT_TROUBLE, errno, "%s", file[f]);
 		  break;
 		}
 	      ig -= r;
@@ -443,10 +443,10 @@ cmp (void)
 
       read0 = block_read (file_desc[0], buf0, bytes_to_read);
       if (read0 == SIZE_MAX)
-	error (EXIT_TROUBLE, errno, "%s", file[0]);
+	die (EXIT_TROUBLE, errno, "%s", file[0]);
       read1 = block_read (file_desc[1], buf1, bytes_to_read);
       if (read1 == SIZE_MAX)
-	error (EXIT_TROUBLE, errno, "%s", file[1]);
+	die (EXIT_TROUBLE, errno, "%s", file[1]);
 
       smaller = MIN (read0, read1);
 
