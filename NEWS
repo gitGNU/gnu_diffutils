@@ -6,6 +6,11 @@ GNU diffutils NEWS                                    -*- outline -*-
 
   diff no longer mishandles line numbers exceeding 2**31 on Mingw-w64.
 
+** Performance changes
+
+  diff's default algorithm has been tweaked to deal better with larger
+  files, reversing some of the changes made in diffutils-3.4.
+
 
 * Noteworthy changes in release 3.5 (2016-08-20) [stable]
 

@@ -161,7 +161,10 @@ The algorithm was independently discovered as described by Esko Ukkonen in
 @c Date: Wed, 29 Sep 1993 08:27:55 MST
 @c Ukkonen should be given credit for also discovering the algorithm used
 @c in GNU diff.
-Related algorithms are surveyed by Alfred V. Aho in
+Unless the @option{--minimal} option is used, @command{diff} uses a
+heuristic by Paul Eggert that limits the cost to @math{O(N^1.5 log N)}
+at the price of producing suboptimal output for large inputs with many
+differences.  Related algorithms are surveyed by Alfred V. Aho in
 section 6.3 of ``Algorithms for Finding Patterns in Strings'',
 @cite{Handbook of Theoretical Computer Science} (Jan Van Leeuwen,
 ed.), Vol.@: A, @cite{Algorithms and Complexity}, Elsevier/MIT Press,
