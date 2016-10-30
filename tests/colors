@@ -81,44 +81,38 @@ $ad> b$rs
 
 rs=0 hd=1 ad=32 de=31 ln=36
 
-diff --color=auto a b > out
-test $? = 1 || fail=1
+returns_ 1 diff --color=auto a b > out || fail=1
 gen_exp_default > exp || framework_failure_
 compare exp out || fail=1
 
-TERM=dumb diff ---presume-output-tty --color=auto a b > out
-test $? = 1 || fail=1
+TERM=dumb returns_ 1 diff ---presume-output-tty --color=auto a b > out \
+  || fail=1
 gen_exp_default > exp || framework_failure_
 compare exp out || fail=1
 
-diff --color=never a b > out
-test $? = 1 || fail=1
+returns_ 1 diff --color=never a b > out || fail=1
 gen_exp_default > exp || framework_failure_
 compare exp out || fail=1
 
-diff a b > out
-test $? = 1 || fail=1
+returns_ 1 diff a b > out || fail=1
 gen_exp_default > exp || framework_failure_
 compare exp out || fail=1
 
-diff --color=always a b > out
-test $? = 1 || fail=1
+returns_ 1 diff --color=always a b > out || fail=1
 gen_exp_default_colors > exp || framework_failure_
 compare exp out || fail=1
 
-diff -u --color=always a b > out
-test $? = 1 || fail=1
+returns_ 1 diff -u --color=always a b > out || fail=1
 gen_exp_u > exp || framework_failure_
 compare exp out || fail=1
 
-diff -c --color=always a b > out
-test $? = 1 || fail=1
+returns_ 1 diff -c --color=always a b > out || fail=1
 gen_exp_c > exp || framework_failure_
 compare exp out || fail=1
 
 rs=0 hd=33 ad=34 de=35 ln=36
-diff -u --color=always --palette="rs=0:hd=33:ad=34:de=35:ln=36" a b > out
-test $? = 1 || fail=1
+returns_ 1 diff -u --color=always \
+  --palette="rs=0:hd=33:ad=34:de=35:ln=36" a b > out || fail=1
 gen_exp_u > exp || framework_failure_
 compare exp out || fail=1
 
