@@ -178,7 +178,7 @@ User-visible changes in version 2.8.6:
   cmp now uses the maximal value instead of the last one.
 
 * diff now omits the ".000000000" on hosts that do not support
-  fractional time stamps.
+  fractional timestamps.
 
 Version 2.8.5 was not publicly released.
 
@@ -223,7 +223,7 @@ User-visible changes in version 2.8:
 * cmp now outputs "byte" rather than "char" outside the POSIX locale.
 * cmp -l's index column width now adjusts to fit larger (or smaller) files.
 * cmp -l -s and cmp -s -l are not allowed.  Use cmp -s or cmp -l instead.
-* diff uses ISO 8601 style time stamps for output times (e.g. "2001-11-23
+* diff uses ISO 8601 style timestamps for output times (e.g. "2001-11-23
   16:44:36.875702460 -0800") unless in the C or POSIX locale and the
   -c style is specified.
 * diff's -I and -F options use the regexp syntax of grep, not of Emacs.

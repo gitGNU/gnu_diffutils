@@ -700,13 +700,13 @@ like this:
 
 @noindent
 @vindex LC_TIME
-@cindex time stamp format, context diffs
-The time stamp normally looks like @samp{2002-02-21 23:30:39.942229878
+@cindex timestamp format, context diffs
+The timestamp normally looks like @samp{2002-02-21 23:30:39.942229878
 -0800} to indicate the date, time with fractional seconds, and time
 zone in @uref{ftp://ftp.isi.edu/in-notes/rfc2822.txt, Internet RFC
 2822 format}.  (The fractional seconds are omitted on hosts that do
-not support fractional time stamps.)  However, a traditional time
-stamp like @samp{Thu Feb 21 23:30:39 2002} is used if the
+not support fractional timestamps.)  However, a traditional timestamp
+like @samp{Thu Feb 21 23:30:39 2002} is used if the
 @env{LC_TIME} locale category is either @samp{C} or @samp{POSIX}.
 
 You can change the header's content with the
@@ -816,11 +816,11 @@ like this:
 @end example
 
 @noindent
-@cindex time stamp format, unified diffs
-The time stamp looks like @samp{2002-02-21 23:30:39.942229878 -0800}
+@cindex timestamp format, unified diffs
+The timestamp looks like @samp{2002-02-21 23:30:39.942229878 -0800}
 to indicate the date, time with fractional seconds, and time zone.
 The fractional seconds are omitted on hosts that do not support
-fractional time stamps.
+fractional timestamps.
 
 You can change the header's content with the
 @option{--label=@var{label}} option. @xref{Alternate Names}.
@@ -2570,7 +2570,7 @@ hunks (if any) into @samp{@var{f}.rej}.
 * Revision Control::       Getting files from @acronym{RCS}, @acronym{SCCS}, etc.
 * Imperfect::              Dealing with imperfect patches.
 * Creating and Removing::  Creating and removing files with a patch.
-* Patching Time Stamps::   Updating time stamps on patched files.
+* Patching Timestamps::   Updating timestamps on patched files.
 * Multiple Patches::       Handling multiple patches in a file.
 * patch Directories::      Changing directory and stripping directories.
 * Backups::                Whether backup files are made.
@@ -2816,12 +2816,12 @@ file.
 If the patch appears to create a file that already exists,
 @command{patch} asks for confirmation before applying the patch.
 
-@node Patching Time Stamps
-@section Updating Time Stamps on Patched Files
-@cindex time stamps on patched files
+@node Patching Timestamps
+@section Updating Timestamps on Patched Files
+@cindex timestamps on patched files
 
 When @command{patch} updates a file, it normally sets the file's
-last-modified time stamp to the current time of day.  If you are using
+last-modified timestamp to the current time of day.  If you are using
 @command{patch} to track a software distribution, this can cause
 @command{make} to incorrectly conclude that a patched file is out of
 date.  For example, if @file{syntax.c} depends on @file{syntax.y}, and
@@ -2830,29 +2830,29 @@ date.  For example, if @file{syntax.c} depends on @file{syntax.y}, and
 @file{syntax.y} even though its contents are actually up to date.
 
 The @option{--set-utc} (@option{-Z}) option causes @command{patch} to
-set a patched file's modification and access times to the time stamps
+set a patched file's modification and access times to the timestamps
 given in context diff headers.  If the context diff headers do not
 specify a time zone, they are assumed to use Coordinated Universal
 Time (@acronym{UTC}, often known as @acronym{GMT}).
 
 The @option{--set-time} (@option{-T}) option acts like @option{-Z} or
 @option{--set-utc}, except that it assumes that the context diff
-headers' time stamps use local time instead of @acronym{UTC}.  This option
+headers' timestamps use local time instead of @acronym{UTC}.  This option
 is not recommended, because patches using local time cannot easily be
-used by people in other time zones, and because local time stamps are
+used by people in other time zones, and because local timestamps are
 ambiguous when local clocks move backwards during daylight-saving time
 adjustments.  If the context diff headers specify a time zone, this
 option is equivalent to @option{--set-utc} (@option{-Z}).
 
-@command{patch} normally refrains from setting a file's time stamps if
-the file's original last-modified time stamp does not match the time
+@command{patch} normally refrains from setting a file's timestamps if
+the file's original last-modified timestamp does not match the time
 given in the diff header, of if the file's contents do not exactly
 match the patch.  However, if the @option{--force} (@option{-f})
-option is given, the file's time stamps are set regardless.
+option is given, the file's timestamps are set regardless.
 
 Due to the limitations of the current @command{diff} format,
 @command{patch} cannot update the times of files whose contents have
-not changed.  Also, if you set file time stamps to values other than
+not changed.  Also, if you set file timestamps to values other than
 the current time of day, you should also remove (e.g., with @samp{make
 clean}) all files that depend on the patched files, so that later
 invocations of @command{make} do not get confused by the patched
@@ -3356,7 +3356,7 @@ To generate the patch, use the command @samp{diff -Naur @var{old}
 directories.  The names @var{old} and @var{new} should not contain any
 slashes.  The @option{-N} option lets the patch create and remove
 files; @option{-a} lets the patch update non-text files; @option{-u}
-generates useful time stamps and enough context; and @option{-r} lets
+generates useful timestamps and enough context; and @option{-r} lets
 the patch update subdirectories.  Here is an example command, using
 Bourne shell syntax:
 
@@ -3465,8 +3465,8 @@ exclude them from the patch by giving @command{diff} the @option{-x
 @var{pattern}} option (@pxref{Comparing Directories}).  If you want
 your patch to modify a derived file because your recipients lack tools
 to build it, make sure that the patch for the derived file follows any
-patches for files that it depends on, so that the recipients' time
-stamps will not confuse @command{make}.
+patches for files that it depends on, so that the recipients'
+timestamps will not confuse @command{make}.
 
 Now you can create the patch using @samp{diff -Naur}.  Make sure to
 specify the scratch directory first and the newer directory second.
@@ -4343,9 +4343,9 @@ Do not ask any questions.  @xref{patch Messages}.
 
 @item -T
 @itemx --set-time
-Set the modification and access times of patched files from time
-stamps given in context diff headers, assuming that the context diff
-headers use local time.  @xref{Patching Time Stamps}.
+Set the modification and access times of patched files from timestamps
+given in context diff headers, assuming that the context diff
+headers use local time.  @xref{Patching Timestamps}.
 
 @item -u
 @itemx --unified
@@ -4378,9 +4378,9 @@ Use @var{suffix} as the backup extension instead of @samp{.orig} or
 
 @item -Z
 @itemx --set-utc
-Set the modification and access times of patched files from time
-stamps given in context diff headers, assuming that the context diff
-headers use @acronym{UTC}.  @xref{Patching Time Stamps}.
+Set the modification and access times of patched files from timestamps
+given in context diff headers, assuming that the context diff
+headers use @acronym{UTC}.  @xref{Patching Timestamps}.
 
 @end table
 
@@ -4597,7 +4597,7 @@ following suggested projects.
 * Changing Structure::   Handling changes to the directory structure.
 * Special Files::        Handling symbolic links, device special files, etc.
 * Unusual File Names::   Handling file names that contain unusual characters.
-* Time Stamp Order::     Outputting diffs in time stamp order.
+* Timestamp Order::     Outputting diffs in timestamp order.
 * Ignoring Changes::     Ignoring certain changes while showing others.
 * Speedups::             Improving performance.
 @end menu
@@ -4642,7 +4642,7 @@ There should be a way to specify that a file has been removed without
 having to include its entire contents in the patch file.  There should
 also be a way to tell @command{patch} that a file was renamed, even if
 there is no way for @command{diff} to generate such information.
-There should be a way to tell @command{patch} that a file's time stamp
+There should be a way to tell @command{patch} that a file's timestamp
 has changed, even if its contents have not changed.
 
 These problems can be fixed by extending the @command{diff} output format
@@ -4683,16 +4683,16 @@ parse.  The problem is with format of @command{diff} output, not just with
 patches the wrong files.  The format of @command{diff} output should be
 extended to handle all possible file names.
 
-@node Time Stamp Order
-@subsection Outputting Diffs in Time Stamp Order
+@node Timestamp Order
+@subsection Outputting Diffs in Timestamp Order
 
 Applying @command{patch} to a multiple-file diff can result in files
-whose time stamps are out of order.  @acronym{GNU} @command{patch} has
-options to restore the time stamps of the updated files
-(@pxref{Patching Time Stamps}), but sometimes it is useful to generate
+whose timestamps are out of order.  @acronym{GNU} @command{patch} has
+options to restore the timestamps of the updated files
+(@pxref{Patching Timestamps}), but sometimes it is useful to generate
 a patch that works even if the recipient does not have @acronym{GNU} patch,
 or does not use these options.  One way to do this would be to
-implement a @command{diff} option to output diffs in time stamp order.
+implement a @command{diff} option to output diffs in timestamp order.
 
 @node Ignoring Changes
 @subsection Ignoring Certain Changes
@@ -4719,10 +4719,10 @@ However, this outputs the filtered text, not the original.
 @subsection Improving Performance
 
 When comparing two large directory structures, one of which was
-originally copied from the other with time stamps preserved (e.g.,
+originally copied from the other with timestamps preserved (e.g.,
 with @samp{cp -pR}), it would greatly improve performance if an option
 told @command{diff} to assume that two files with the same size and
-time stamps have the same content.  @xref{diff Performance}.
+timestamps have the same content.  @xref{diff Performance}.
 
 @node Bugs
 @section Reporting Bugs
