@@ -6,6 +6,9 @@ GNU diffutils NEWS                                    -*- outline -*-
 
   diff no longer mishandles line numbers exceeding 2**31 on Mingw-w64.
 
+  the ---presume-output-tty (ostensibly test-only) option would cause
+  diff --color to read an uninitialized variable
+
 ** Performance changes
 
   diff's default algorithm has been tweaked to deal better with larger

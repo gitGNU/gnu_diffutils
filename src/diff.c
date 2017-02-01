@@ -296,6 +296,7 @@ main (int argc, char **argv)
   ignore_regexp_list.buf = &ignore_regexp;
   re_set_syntax (RE_SYNTAX_GREP | RE_NO_POSIX_BACKTRACKING);
   excluded = new_exclude ();
+  presume_output_tty = false;
 
   /* Decode the options.  */
 
