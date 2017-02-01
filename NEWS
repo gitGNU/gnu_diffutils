@@ -8,6 +8,7 @@ GNU diffutils NEWS                                    -*- outline -*-
 
   the ---presume-output-tty (ostensibly test-only) option would cause
   diff --color to read an uninitialized variable
+  [bug introduced in 3.4]
 
 ** Performance changes
 
