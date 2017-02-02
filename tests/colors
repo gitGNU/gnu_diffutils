@@ -85,7 +85,7 @@ returns_ 1 diff --color=auto a b > out || fail=1
 gen_exp_default > exp || framework_failure_
 compare exp out || fail=1
 
-TERM=dumb returns_ 1 diff ---presume-output-tty --color=auto a b > out \
+returns_ 1 env TERM=dumb diff ---presume-output-tty --color=auto a b > out \
   || fail=1
 gen_exp_default > exp || framework_failure_
 compare exp out || fail=1
