@@ -971,10 +971,10 @@ static char const * const option_help_msgid[] = {
   N_("-d, --minimal            try hard to find a smaller set of changes"),
   N_("    --horizon-lines=NUM  keep NUM lines of the common prefix and suffix"),
   N_("    --speed-large-files  assume large files and many scattered small changes"),
-  N_("    --color[=WHEN]       colorize the output; WHEN can be 'never', 'always',"),
-  N_("                           or 'auto' (the default)"),
-  N_("    --palette=PALETTE    specify the colors to use when --color is active"),
-  N_("                           PALETTE is a colon-separated list terminfo capabilities"),
+  N_("    --color[=WHEN]       colorize the output; WHEN can be 'never', 'always',\n"
+     "                           or 'auto' (the default)"),
+  N_("    --palette=PALETTE    the colors to use when --color is active; PALETTE is\n"
+     "                           a colon-separated list of terminfo capabilities"),
   "",
   N_("    --help               display this help and exit"),
   N_("-v, --version            output version information and exit"),
