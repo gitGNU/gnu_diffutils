@@ -818,7 +818,7 @@ add_regexp (struct regexp_list *reglist, char const *pattern)
   char const *m = re_compile_pattern (pattern, patlen, reglist->buf);
 
   if (m != 0)
-    error (0, 0, "%s: %s", pattern, m);
+    error (EXIT_TROUBLE, 0, "%s: %s", pattern, m);
   else
     {
       char *regexps = reglist->regexps;
