@@ -4,6 +4,12 @@ GNU diffutils NEWS                                    -*- outline -*-
 
 ** Bug fixes
 
+  Using an invalid regular expression with --ignore-matching-lines=RE (-I)
+  no longer causes stack overflow.  Before, with an invocation like the
+  following, diff would diagnose the error, but would still proceed to
+  blow the stack: diff -Ia -I\\ <(echo) <(echo b)
+  [bug introduced in 2.9]
+
   diff no longer mishandles line numbers exceeding 2**31 on Mingw-w64.
 
   the ---presume-output-tty (ostensibly test-only) option would cause

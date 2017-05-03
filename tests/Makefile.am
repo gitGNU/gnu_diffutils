@@ -9,6 +9,7 @@ TESTS = \
   diff3 \
   excess-slash \
   help-version	\
+  invalid-re	\
   function-line-vs-leading-space \
   ignore-matching-lines \
   label-vs-func	\
