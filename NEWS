@@ -2,6 +2,11 @@ GNU diffutils NEWS                                    -*- outline -*-
 
 * Noteworthy changes in release ?.? (????-??-??) [?]
 
+** New features
+
+  When one file is a prefix of the other, cmp now appends the shorter
+  file's size to the EOF diagnostic.
+
 ** Bug fixes
 
   Using an invalid regular expression with --ignore-matching-lines=RE (-I)

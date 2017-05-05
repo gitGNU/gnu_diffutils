@@ -558,8 +558,24 @@ cmp (void)
 	{
 	  if (differing <= 0 && comparison_type != type_status)
 	    {
-	      /* See POSIX 1003.1-2001 for this format.  */
-	      fprintf (stderr, _("cmp: EOF on %s\n"), file[read1 < read0]);
+	      char const *shorter_file = file[read1 < read0];
+	      char byte_buf[INT_BUFSIZE_BOUND (off_t)];
+	      char const *byte_num = offtostr (byte_number - 1, byte_buf);
+
+	      /* See POSIX 1003.1-2001 for the constraints on these
+		 format strings.  */
+	      if (comparison_type == type_first_diff)
+		{
+		  char line_buf[INT_BUFSIZE_BOUND (off_t)];
+		  char const *line_num = offtostr (line_number - 1, line_buf);
+		  fprintf (stderr,
+			   _("cmp: EOF on %s after byte %s, line %s\n"),
+			   shorter_file, byte_num, line_num);
+		}
+	      else
+		fprintf (stderr,
+			 _("cmp: EOF on %s after byte %s\n"),
+			 shorter_file, byte_num);
 	    }
 
 	  return EXIT_FAILURE;

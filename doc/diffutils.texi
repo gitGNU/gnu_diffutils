@@ -3502,23 +3502,24 @@ ignore at the start of each file; they are equivalent to the
 @option{--ignore-initial=@var{from-skip}:@var{to-skip}} option.
 
 By default, @command{cmp} outputs nothing if the two files have the
-same contents.  If one file is a prefix of the other, @command{cmp}
-prints to standard error a message of the following form:
-
-@example
-cmp: EOF on @var{shorter-file}
-@end example
-
-Otherwise, @command{cmp} prints to standard output a message of the
-following form:
+same contents.  If the two files have bytes that differ, @command{cmp}
+reports the location of the first difference to standard output:
 
 @example
 @var{from-file} @var{to-file} differ: char @var{byte-number}, line @var{line-number}
 @end example
 
+@noindent
+If one file is a prefix of the other, @command{cmp} reports the
+shorter file's length to standard error (@acronym{POSIX} allows but
+does not require the shorter file's name to be followed by a blank and
+additional information):
+
+@example
+cmp: EOF on @var{shorter-file} after byte @var{byte-number}, line @var{line-number}
+@end example
+
 The message formats can differ outside the @acronym{POSIX} locale.
-Also, @acronym{POSIX} allows the @acronym{EOF} message to be followed
-by a blank and some additional information.
 
 An exit status of 0 means no differences were found, 1 means some
 differences were found, and 2 means trouble.
@@ -3565,7 +3566,8 @@ instead of the default standard output.
 Each output line contains a differing byte's number relative to the
 start of the input, followed by the differing byte values.
 Byte numbers start at 1.
-Also, output the @acronym{EOF} message if one file is shorter than the other.
+Also, if one file is shorter than the other, output the @acronym{EOF}
+message with just a byte number.
 
 @item -n @var{count}
 @itemx --bytes=@var{count}

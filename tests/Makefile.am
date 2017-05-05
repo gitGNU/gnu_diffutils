@@ -5,6 +5,7 @@ TESTS = \
   bignum \
   binary \
   brief-vs-stat-zero-kernel-lies \
+  cmp \
   colliding-file-names \
   diff3 \
   excess-slash \
